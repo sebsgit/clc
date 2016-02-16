@@ -191,25 +191,16 @@ void clc_mix_columns_rev( clc_bytes_16 * x ){
 	}
 }
 
-void clc_rot_word(unsigned char * bp){
-	unsigned char tmp = bp[0];
-	bp[0] = bp[1];
-	bp[1] = bp[2];
-	bp[2] = bp[3];
-	bp[3] = tmp;
-}
-
-void clc_sub_word( unsigned char * bp ){
-	bp[0] = clc_s_box[ bp[0] ];
-	bp[1] = clc_s_box[ bp[1] ];
-	bp[2] = clc_s_box[ bp[2] ];
-	bp[3] = clc_s_box[ bp[3] ];
+static void clc_rot_sub_word(unsigned char* bp, const unsigned char rcon) {
+	const unsigned char tmp = bp[0];
+	bp[0] = clc_s_box[ bp[1] ] ^ rcon;
+	bp[1] = clc_s_box[ bp[2]] ;
+	bp[2] = clc_s_box[ bp[3] ];
+	bp[3] = clc_s_box[ tmp ];
 }
 
 void clc_key_sched_core( unsigned char * b_in, short i ){
-	clc_rot_word(b_in);
-	clc_sub_word(b_in);
-	b_in[0] ^= clc_Rcon_tab[i];
+	clc_rot_sub_word(b_in, clc_Rcon_tab[i]);
 }
 
 short clc_rounds( short key_len ){

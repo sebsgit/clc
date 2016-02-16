@@ -43,8 +43,6 @@ extern void clc_mix_column_rev(short cn, clc_bytes_16 * x);
 extern void clc_mix_columns( clc_bytes_16 * x );
 extern void clc_mix_columns_rev( clc_bytes_16 * x );
 
-extern void clc_rot_word(unsigned char * bp);
-extern void clc_sub_word( unsigned char * bp );
 extern void clc_key_sched_core( unsigned char * b_in, short i );
 
 extern void clc_init_key( unsigned char * key, const unsigned char * data, int data_len );
