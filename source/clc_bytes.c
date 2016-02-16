@@ -52,10 +52,10 @@ void clc_print_b_mat(const clc_bytes_16 * x){
 
 void clc_xor_16(unsigned char * b1, unsigned char * b2){
 	#ifdef CLC_WITH_SSE
-		__m128 bytes_sse = _mm_loadu_ps((float *)b1);
-		__m128 key_sse = _mm_loadu_ps((float *)b2);
+		__m128 bytes_sse = _mm_loadu_ps(b1);
+		__m128 key_sse = _mm_loadu_ps(b2);
 		__m128 xor_sse = _mm_xor_ps(bytes_sse,key_sse);
-		_mm_storeu_ps((float *)b1,xor_sse);
+		_mm_storeu_ps(b1,xor_sse);
 	#else
 		short i;
 		for( i=0 ; i<16 ; ++i ){
