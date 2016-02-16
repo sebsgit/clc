@@ -3,7 +3,7 @@
 #include <assert.h>
 #include "clc_bytes.h"
 
-#ifdef __SSE__
+#ifdef CLC_WITH_SSE
 	#include "xmmintrin.h"
 #endif
 
@@ -55,7 +55,7 @@ void clc_print_b_mat(const clc_bytes_16 * x){
 }
 
 void clc_xor_16(unsigned char * b1, unsigned char * b2){
-	#ifdef __SSE__
+	#ifdef CLC_WITH_SSE
 		__m128 bytes_sse = _mm_loadu_ps((float *)b1);
 		__m128 key_sse = _mm_loadu_ps((float *)b2);
 		__m128 xor_sse = _mm_xor_ps(bytes_sse,key_sse);
