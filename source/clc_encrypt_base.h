@@ -6,7 +6,6 @@ extern "C" {
 #endif
 
 #include "clc_bytes.h"
-#include "clc_error.h"
 
 extern unsigned char clc_s_box[256];
 extern unsigned char clc_s_box_inv[256];

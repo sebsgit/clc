@@ -9,7 +9,6 @@
 #include "clc_encrypt_32.h"
 #include "clc_md5.h"
 #include "clc_sha1.h"
-#include "clc_file.h"
 
 void test_16(int num_test){
 	int i,j;
@@ -107,17 +106,11 @@ void test(){
 int main(int argc, char ** argv){
 	const int n = 2000;
 	char * test_d = "another text\n but this time its test word to encrypt and decrypt ok";
-	char * fout = 0, * fout2 = 0, * fout3 = 0;
 	clc_bytes_16 b;
 	clc_bytes_20 b20;
 	
 	if(argc > 1){
 		test_d = argv[1];
-	}
-	if( argc > 4 ){
-		fout = argv[2];
-		fout2 = argv[3];
-		fout3 = argv[4];
 	}
 	
 	test();
@@ -132,9 +125,6 @@ int main(int argc, char ** argv){
 	clc_sha1((const unsigned char*)test_d,strlen(test_d),&b20);
 	printf("\nsha1 (%lu): ",strlen(test_d));
 	clc_print_b_20(&b20);
-	
-	clc_encrypt_file("test_pass",fout,fout2);
-	clc_decrypt_file("test_pass",fout2,fout3);
 	return 0;
 }
 
