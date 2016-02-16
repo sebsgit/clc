@@ -4,9 +4,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <math.h>
-#include "clc_encrypt_16.h"
-#include "clc_encrypt_24.h"
-#include "clc_encrypt_32.h"
+#include "clc_encrypt.h"
 #include "clc_md5.h"
 #include "clc_sha1.h"
 
