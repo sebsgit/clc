@@ -76,20 +76,20 @@ void test(){
 	key.b[1] = 0x15;
 	key.b[2] = 0x71;
 	key.b[3] = 0xc9;
-    key.b[4] = 0x47;
-    key.b[5] = 0xd9;
-    key.b[6] = 0xe8;
-    key.b[7] = 0x59;
-    key.b[8] = 0x0c;
-    key.b[9] = 0xb7;
-    key.b[10] = 0xad; 
-    key.b[11] = 0xd6;
-    key.b[12] = 0xaf;
-    key.b[13] = 0x7f;
-    key.b[14] = 0x67;
-    key.b[15] = 0x98;
-    
-    memset(b1.b,0x61,16);
+	key.b[4] = 0x47;
+	key.b[5] = 0xd9;
+	key.b[6] = 0xe8;
+	key.b[7] = 0x59;
+	key.b[8] = 0x0c;
+	key.b[9] = 0xb7;
+	key.b[10] = 0xad; 
+	key.b[11] = 0xd6;
+	key.b[12] = 0xaf;
+	key.b[13] = 0x7f;
+	key.b[14] = 0x67;
+	key.b[15] = 0x98;
+
+	memset(b1.b,0x61,16);
 	clc_print_b_mat(&b1);
 	
 	clc_expand_key_16(&key);
