@@ -6,26 +6,19 @@
 #include <stdio.h>
 #include "clc_md5.h"
 
-unsigned char clc_md5_pad[] = {
+static unsigned char clc_md5_pad[] = {
 	0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 };
 
-unsigned char clc_md5_init[] = {
+static unsigned char clc_md5_init[] = {
 	0x01, 0x23, 0x45, 0x67,
 	0x89, 0xab, 0xcd, 0xef,
 	0xfe, 0xdc, 0xba, 0x98,
 	0x76, 0x54, 0x32, 0x10
 };
-
-/*
-long long T(int i){
-	const double r = 4294967296*fabs(sin(i));	
-	return floor(r);
-}
-* RCON_i = T(i)*/
 
 #define RCON_1  0xd76aa478
 #define RCON_2  0xe8c7b756

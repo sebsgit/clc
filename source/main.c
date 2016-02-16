@@ -105,13 +105,8 @@ void test(){
 
 int main(int argc, char ** argv){
 	const int n = 2000;
-	char * test_d = "another text\n but this time its test word to encrypt and decrypt ok";
 	clc_bytes_16 b;
 	clc_bytes_20 b20;
-	
-	if(argc > 1){
-		test_d = argv[1];
-	}
 	
 	test();
 	test_16(n);
@@ -119,11 +114,11 @@ int main(int argc, char ** argv){
 	test_32(n);
 	printf("\n");
 	
-	clc_md5("a text to md5", strlen("a text to md5"), &b);
+	clc_md5((const unsigned char*)"a text to md5", strlen("a text to md5"), &b);
 	unsigned char result_md5[] = { 0xf5, 0xbf, 0x69, 0x72, 0x1c, 0x97, 0xea, 0x67, 0xb3, 0xc3, 0xc6, 0x31, 0x81, 0xca, 0xbf, 0x90 };
 	assert(memcmp(&b, result_md5, 16) == 0);
 	
-	clc_sha1("text to sha1 test",strlen("text to sha1 test"),&b20);
+	clc_sha1((const unsigned char*)"text to sha1 test",strlen("text to sha1 test"),&b20);
 	unsigned char result_sha1[] = { 0x4c, 0xab, 0x60, 0x2c, 0x07, 0xe1, 0xa5, 0x7e, 0x95, 0xe9, 0xba, 0xe3, 0xaa, 0x29, 0x81, 0xa8, 0x4d, 0xab, 0x73, 0xc1 };
 	assert(memcmp(&b20, result_sha1, 20) == 0);
 	return 0;

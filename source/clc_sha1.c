@@ -6,9 +6,9 @@
 #include <stdio.h>
 #include "clc_sha1.h"
 
-#define ROT_L(x, n) ((((x) << (n)) & 0xFFFFFFFF) | ((x) >> (32 - (n))))
+#define CLC_ROTATE_LEFT(x, n) ((((x) << (n)) & 0xFFFFFFFF) | ((x) >> (32 - (n))))
 
-unsigned int clc_sha1_init[] = {
+static unsigned int clc_sha1_init[] = {
 	0x67452301,
 	0xEFCDAB89,
 	0x98BADCFE,
@@ -16,7 +16,7 @@ unsigned int clc_sha1_init[] = {
 	0xC3D2E1F0
 };
 
-unsigned char clc_sha1_pad[] = {
+static unsigned char clc_sha1_pad[] = {
 	0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -44,7 +44,7 @@ void clc_sha1_calc( clc_sha1_context * context ){
 
 	for(j=16 ; j<80 ; ++j){
 		t = x[j-3] ^ x[j-8] ^ x[j-14] ^ x[j-16];
-		x[j] = ROT_L(t,1);
+		x[j] = CLC_ROTATE_LEFT(t,1);
 	}
 	
 	a = context->tmp[0]; 
@@ -68,10 +68,10 @@ void clc_sha1_calc( clc_sha1_context * context ){
 			k = 0xCA62C1D6;
 		}
 
-		t = ROT_L(a,5) + f + e + k + x[j];
+		t = CLC_ROTATE_LEFT(a,5) + f + e + k + x[j];
 		e = d;
 		d = c;
-		c = ROT_L(b,30);
+		c = CLC_ROTATE_LEFT(b,30);
 		b = a;
 		a = t;
 	}
@@ -147,3 +147,5 @@ void clc_sha1(const unsigned char * data, long in_data_len, clc_bytes_20 * out){
 	clc_sha1_add_data(data,in_data_len,&context);
 	clc_sha1_finalize(&context,out);
 }
+
+#undef CLC_ROTATE_LEFT
