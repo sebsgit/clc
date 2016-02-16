@@ -13,19 +13,17 @@ extern unsigned char clc_E_tab[256];
 extern unsigned char clc_L_tab[256];
 extern unsigned char clc_Rcon_tab[16];
 
-struct _key_exp_16{
+typedef struct _key_exp_16{
 	unsigned char b[176];
-};
-struct _key_exp_24{
-	unsigned char b[208];
-};
-struct _key_exp_32{
-	unsigned char b[240];
-};
+} clc_key_exp_16;
 
-typedef struct _key_exp_16 clc_key_exp_16;
-typedef struct _key_exp_24 clc_key_exp_24;
-typedef struct _key_exp_32 clc_key_exp_32;
+typedef struct _key_exp_24{
+	unsigned char b[208];
+} clc_key_exp_24;
+
+typedef struct _key_exp_32{
+	unsigned char b[240];
+} clc_key_exp_32;
 
 extern void clc_print_key_16( const clc_key_exp_16 * key );
 extern void clc_print_key_24( const clc_key_exp_24 * key );

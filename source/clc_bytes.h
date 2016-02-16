@@ -5,16 +5,13 @@
 extern "C" {
 #endif
 
-struct _bytes{
+typedef struct _clc_bytes_16{
 	unsigned char b[16];
-};
+} clc_bytes_16;
 
-struct _bytes_20{
+typedef struct _clc_bytes_20{
 	unsigned char b[20];
-};
-
-typedef struct _bytes clc_bytes_16;
-typedef struct _bytes_20 clc_bytes_20;
+} clc_bytes_20;
 
 extern unsigned char clc_get_b(const clc_bytes_16 * x, short n);
 extern void clc_set_b(short n, clc_bytes_16 * x, unsigned char v);
