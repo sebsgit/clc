@@ -7,10 +7,6 @@
 	#include "xmmintrin.h"
 #endif
 
-void clc_cpy_b(const clc_bytes_16 * src, clc_bytes_16 * dst){
-	memcpy(dst->b, src->b, 16);
-}
-
 unsigned char clc_get_b(const clc_bytes_16 * x, short n){
 	assert( x && n>-1 && n<16 );
 	return x->b[n];

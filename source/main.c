@@ -20,7 +20,7 @@ void test_16(int num_test){
 			key.b[j] = rand()%256;
 			b1.b[j] = rand()%256;
 		}
-		clc_cpy_b(&b1,&b2);
+		memcpy(&b2, &b1, sizeof(b1));
 		clc_expand_key_16(&key);
 		clc_encrypt_16(&b1,&key);
 		clc_decrypt_16(&b1,&key);
@@ -40,7 +40,7 @@ void test_24(int num_test){
 			if(j<16)
 				b1.b[j] = rand()%256;
 		}
-		clc_cpy_b(&b1,&b2);
+		memcpy(&b2, &b1, sizeof(b1));
 		clc_expand_key_24(&key);
 		clc_encrypt_24(&b1,&key);
 		clc_decrypt_24(&b1,&key);
@@ -60,7 +60,8 @@ void test_32(int num_test){
 			if(j<16)
 				b1.b[j] = rand()%256;
 		}
-		clc_cpy_b(&b1,&b2);
+
+		memcpy(&b2, &b1, sizeof(b1));
 		clc_expand_key_32(&key);
 		clc_encrypt_32(&b1,&key);
 		clc_decrypt_32(&b1,&key);

@@ -19,7 +19,6 @@ extern void clc_set_b(short n, clc_bytes_16 * x, unsigned char v);
 extern unsigned char clc_get_b_m(const clc_bytes_16 * x, short rn, short cn);
 extern void clc_set_b_m(short rn, short cn, clc_bytes_16 * x, unsigned char v);
 
-extern void clc_cpy_b(const clc_bytes_16 * src, clc_bytes_16 * dst);
 /*!
  * \brief returns 1 if *x1 == *x2, else return 0
  */
