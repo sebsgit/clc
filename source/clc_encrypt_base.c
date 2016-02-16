@@ -291,17 +291,3 @@ void clc_decrypt( clc_bytes_16 * x, unsigned char * key, short n_rounds, int key
 void clc_init_key(unsigned char * key, const unsigned char * data, int data_len){
 	memcpy(key,data,data_len);
 }
-
-long clc_fill_to_16( const unsigned char * src, unsigned char ** dest, long len ){
-	long r = len%16;
-	if(r==0){
-		*dest = (unsigned char*)malloc(len);
-		memcpy(*dest,src,len);
-		return len;
-	} else{
-		*dest = (unsigned char*)malloc(len+(16-r));
-		memcpy(*dest,src,len);
-		memset(*dest+len,0,(16-r));
-		return len+(16-r);
-	}
-}

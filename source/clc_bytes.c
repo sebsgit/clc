@@ -7,16 +7,6 @@
 	#include "xmmintrin.h"
 #endif
 
-unsigned char clc_get_b(const clc_bytes_16 * x, short n){
-	assert( x && n>-1 && n<16 );
-	return x->b[n];
-}
-
-void clc_set_b(short n, clc_bytes_16 * x, unsigned char v){
-	assert( x && n>-1 && n<16 );
-	x->b[n] = v;
-}
-
 unsigned char clc_get_b_m(const clc_bytes_16 * x, short rn, short cn){
 	assert( x && cn>-1 && cn<4 && rn>-1 && rn<4 );
 	return x->b[rn+cn*4];

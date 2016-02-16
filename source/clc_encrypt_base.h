@@ -55,8 +55,6 @@ extern void clc_decrypt( clc_bytes_16 * x, unsigned char * key, short n_rounds, 
 
 extern short clc_rounds( short key_len );
 
-extern long clc_fill_to_16( const unsigned char * src, unsigned char ** dest, long len );
-
 #ifdef __cplusplus
 }
 #endif

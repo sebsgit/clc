@@ -13,9 +13,6 @@ typedef struct _clc_bytes_20{
 	unsigned char b[20];
 } clc_bytes_20;
 
-extern unsigned char clc_get_b(const clc_bytes_16 * x, short n);
-extern void clc_set_b(short n, clc_bytes_16 * x, unsigned char v);
-
 extern unsigned char clc_get_b_m(const clc_bytes_16 * x, short rn, short cn);
 extern void clc_set_b_m(short rn, short cn, clc_bytes_16 * x, unsigned char v);
 
