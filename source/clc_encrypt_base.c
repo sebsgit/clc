@@ -177,7 +177,7 @@ void clc_shift_row_rev( clc_bytes_16 * x ){
 	}
 }
 
-unsigned char clc_mult_L(unsigned char b1, unsigned char b2){
+static unsigned char clc_mult_L(unsigned char b1, unsigned char b2){
 	unsigned int res = clc_L_tab[b1] + clc_L_tab[b2];
 	if( b1 == 0x01 ) return b2;
 	if( b2 == 0x01 ) return b1;

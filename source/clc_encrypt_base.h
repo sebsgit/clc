@@ -15,7 +15,6 @@ extern void clc_shift_row_left_n(short rn, clc_bytes_16 * x, short c);
 extern void clc_shift_row_right_n(short rn, clc_bytes_16 * x, short c);
 extern void clc_shift_row(clc_bytes_16 * x);
 extern void clc_shift_row_rev( clc_bytes_16 * x );
-extern unsigned char clc_mult_L(unsigned char b1, unsigned char b2);
 extern void clc_mix_column(short cn, clc_bytes_16 * x);
 extern void clc_mix_column_rev(short cn, clc_bytes_16 * x);
 extern void clc_mix_columns( clc_bytes_16 * x );
