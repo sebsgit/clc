@@ -8,6 +8,10 @@
 #include "clc_md5.h"
 #include "clc_sha1.h"
 
+static short clc_test_eq( const clc_bytes_16 * x1, const clc_bytes_16 * x2 ){
+	return (0 == memcmp(x1->b,x2->b,16));
+}
+
 static void test_16(int num_test){
 	int i,j;
 	clc_bytes_16 b1, b2;

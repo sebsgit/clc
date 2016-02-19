@@ -4,6 +4,10 @@
 #include <stdlib.h>
 #include "clc_encrypt_base.h"
 
+#ifdef CLC_WITH_SSE
+	#include "xmmintrin.h"
+#endif
+
 unsigned char clc_s_box[256] = 
 {
    0x63, 0x7C, 0x77, 0x7B, 0xF2, 0x6B, 0x6F, 0xC5, 0x30, 0x01, 0x67, 0x2B, 0xFE, 0xD7, 0xAB, 0x76,
@@ -88,6 +92,31 @@ static unsigned char clc_Rcon_tab[16] = {
 	0x80, 0x1B, 0x36, 0x6C, 
 	0xD8, 0xAB, 0x4D, 0x9A
 };
+
+static unsigned char clc_get_b_m(const clc_bytes_16 * x, short rn, short cn){
+	assert( x && cn>-1 && cn<4 && rn>-1 && rn<4 );
+	return x->b[rn+cn*4];
+}
+
+static void clc_set_b_m(short rn, short cn, clc_bytes_16 * x, unsigned char v){
+	assert( x && cn>-1 && cn<4 && rn>-1 && rn<4 );
+	x->b[rn+cn*4] = v;
+}
+
+static void clc_xor_16(unsigned char * b1, unsigned char * b2){
+	#ifdef CLC_WITH_SSE
+		__m128 bytes_sse = _mm_loadu_ps((const float*)b1);
+		__m128 key_sse = _mm_loadu_ps((const float*)b2);
+		__m128 xor_sse = _mm_xor_ps(bytes_sse,key_sse);
+		_mm_storeu_ps((float *)b1,xor_sse);
+	#else
+		short i;
+		for( i=0 ; i<16 ; ++i ){
+			b1[i] ^= b2[i];
+		}
+	#endif
+}
+
 
 void clc_sub_bytes( clc_bytes_16 * x ){
 	short i;
