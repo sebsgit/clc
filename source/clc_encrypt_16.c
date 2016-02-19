@@ -1,6 +1,17 @@
 #include <assert.h>
 #include <string.h>
+#include <stdio.h>
 #include "clc_encrypt_16.h"
+#include "clc_encrypt_base.h"
+
+void clc_print_key_16( const clc_aes_key_128 * key ){
+	short i;
+	for( i=0 ; i<176 ; ++i ){
+		printf("%x ",key->b[i]);
+		if(i>0 && i%15 == 0) printf("\n");
+	}
+	printf("\n");
+}
 
 void clc_init_key_16( clc_aes_key_128 * key, const unsigned char * data, int data_len ){
 	assert(data_len>0 && data_len<=16 && "FAIL: data length must be [1,16] !");

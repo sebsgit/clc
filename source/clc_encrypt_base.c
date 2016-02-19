@@ -216,33 +216,6 @@ short clc_rounds( short key_len ){
 	return -1;
 }
 
-void pclc_rint_key_16( const clc_aes_key_128 * key ){
-	short i;
-	for( i=0 ; i<176 ; ++i ){
-		printf("%x ",key->b[i]);
-		if(i>0 && i%15 == 0) printf("\n");
-	}
-	printf("\n");
-}
-
-void clc_print_key_24( const clc_aes_key_192 * key ){
-	short i;
-	for( i=0 ; i<208 ; ++i ){
-		printf("%x ",key->b[i]);
-		if(i>0 && i%16 == 0) printf("\n");
-	}
-	printf("\n");
-}
-
-void clc_print_key_32( const clc_aes_key_256 * key ){
-	short i;
-	for( i=0 ; i<240 ; ++i ){
-		printf("%x ",key->b[i]);
-		if(i>0 && i%16 == 0) printf("\n");
-	}
-	printf("\n");
-}
-
 void clc_add_round_key( clc_bytes_16 * x , unsigned char * key, short n_round ){
 	clc_xor_16(x->b,key+n_round*16);
 }
