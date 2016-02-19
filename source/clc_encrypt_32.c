@@ -4,6 +4,8 @@
 #include "clc_encrypt_32.h"
 #include "clc_encrypt_base.h"
 
+extern unsigned char clc_s_box[256];
+
 void clc_print_key_32( const clc_aes_key_256 * key ){
 	short i;
 	for( i=0 ; i<240 ; ++i ){

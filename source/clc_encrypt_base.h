@@ -7,12 +7,6 @@ extern "C" {
 
 #include "clc_bytes.h"
 
-extern unsigned char clc_s_box[256];
-extern unsigned char clc_s_box_inv[256];
-extern unsigned char clc_E_tab[256];
-extern unsigned char clc_L_tab[256];
-extern unsigned char clc_Rcon_tab[16];
-
 extern void clc_sub_bytes( clc_bytes_16 * x );
 extern void clc_sub_bytes_rev( clc_bytes_16 * x );
 extern void clc_shift_row_right(short rn, clc_bytes_16 * x);
