@@ -216,7 +216,7 @@ short clc_rounds( short key_len ){
 	return -1;
 }
 
-void pclc_rint_key_16( const clc_key_exp_16 * key ){
+void pclc_rint_key_16( const clc_aes_key_128 * key ){
 	short i;
 	for( i=0 ; i<176 ; ++i ){
 		printf("%x ",key->b[i]);
@@ -225,7 +225,7 @@ void pclc_rint_key_16( const clc_key_exp_16 * key ){
 	printf("\n");
 }
 
-void clc_print_key_24( const clc_key_exp_24 * key ){
+void clc_print_key_24( const clc_aes_key_192 * key ){
 	short i;
 	for( i=0 ; i<208 ; ++i ){
 		printf("%x ",key->b[i]);
@@ -234,7 +234,7 @@ void clc_print_key_24( const clc_key_exp_24 * key ){
 	printf("\n");
 }
 
-void clc_print_key_32( const clc_key_exp_32 * key ){
+void clc_print_key_32( const clc_aes_key_256 * key ){
 	short i;
 	for( i=0 ; i<240 ; ++i ){
 		printf("%x ",key->b[i]);

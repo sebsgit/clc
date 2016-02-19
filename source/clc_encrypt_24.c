@@ -2,7 +2,7 @@
 #include <string.h>
 #include "clc_encrypt_24.h"
 
-void clc_init_key_24( clc_key_exp_24 * key, const unsigned char * data, int data_len ){
+void clc_init_key_24( clc_aes_key_192 * key, const unsigned char * data, int data_len ){
 	assert(data_len>0 && data_len<=24 && "FAIL: data length must be [1,24] !");
 	clc_init_key(key->b,data,data_len);
 	if(data_len<24){
@@ -10,7 +10,7 @@ void clc_init_key_24( clc_key_exp_24 * key, const unsigned char * data, int data
 	}
 }
 
-void clc_expand_key_24( clc_key_exp_24 * key ){
+void clc_expand_key_24( clc_aes_key_192 * key ){
 	unsigned char buff[4];
 	unsigned char p = 24;
 	unsigned short i=1;
@@ -28,15 +28,15 @@ void clc_expand_key_24( clc_key_exp_24 * key ){
 	}
 }
 
-void clc_encrypt_24( clc_bytes_16 * x, clc_key_exp_24 * key ){
+void clc_encrypt_24( clc_bytes_16 * x, clc_aes_key_192 * key ){
 	clc_encrypt(x,key->b,12);
 }
 
-void clc_decrypt_24( clc_bytes_16 * x, clc_key_exp_24 * key ){
+void clc_decrypt_24( clc_bytes_16 * x, clc_aes_key_192 * key ){
 	clc_decrypt(x,key->b,12,192);
 }
 
-void clc_encrypt_data_24( unsigned char * in, clc_key_exp_24 * key, long data_len ){
+void clc_encrypt_data_24( unsigned char * in, clc_aes_key_192 * key, long data_len ){
 	const long c = data_len/16;
 	long i;
 	clc_bytes_16 b;
@@ -48,7 +48,7 @@ void clc_encrypt_data_24( unsigned char * in, clc_key_exp_24 * key, long data_le
 	}
 }
 
-void clc_decrypt_data_24( unsigned char * in, clc_key_exp_24 * key, long data_len ){
+void clc_decrypt_data_24( unsigned char * in, clc_aes_key_192 * key, long data_len ){
 	const long c = data_len/16;
 	long i;
 	clc_bytes_16 b;

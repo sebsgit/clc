@@ -2,7 +2,7 @@
 #include <string.h>
 #include "clc_encrypt_16.h"
 
-void clc_init_key_16( clc_key_exp_16 * key, const unsigned char * data, int data_len ){
+void clc_init_key_16( clc_aes_key_128 * key, const unsigned char * data, int data_len ){
 	assert(data_len>0 && data_len<=16 && "FAIL: data length must be [1,16] !");
 	clc_init_key(key->b,data,data_len);
 	if(data_len<16){
@@ -10,7 +10,7 @@ void clc_init_key_16( clc_key_exp_16 * key, const unsigned char * data, int data
 	}
 }
 
-void clc_expand_key_16( clc_key_exp_16 * key ){
+void clc_expand_key_16( clc_aes_key_128 * key ){
 	unsigned char buff[4];
 	unsigned char p = 16;
 	unsigned short i=1;
@@ -28,15 +28,15 @@ void clc_expand_key_16( clc_key_exp_16 * key ){
 	}
 }
 
-void clc_encrypt_16( clc_bytes_16 * x, clc_key_exp_16 * key ){
+void clc_encrypt_16( clc_bytes_16 * x, clc_aes_key_128 * key ){
 	clc_encrypt(x,key->b,10);
 }
 
-void clc_decrypt_16( clc_bytes_16 * x, clc_key_exp_16 * key ){
+void clc_decrypt_16( clc_bytes_16 * x, clc_aes_key_128 * key ){
 	clc_decrypt(x,key->b,10,160);
 }
 
-void clc_encrypt_data_16( unsigned char * in, clc_key_exp_16 * key, long data_len ){
+void clc_encrypt_data_16( unsigned char * in, clc_aes_key_128 * key, long data_len ){
 	const long c = data_len/16;
 	long i;
 	clc_bytes_16 b;
@@ -48,7 +48,7 @@ void clc_encrypt_data_16( unsigned char * in, clc_key_exp_16 * key, long data_le
 	}
 }
 
-void clc_decrypt_data_16( unsigned char * in, clc_key_exp_16 * key, long data_len ){
+void clc_decrypt_data_16( unsigned char * in, clc_aes_key_128 * key, long data_len ){
 	const long c = data_len/16;
 	long i;
 	clc_bytes_16 b;

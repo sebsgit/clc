@@ -5,11 +5,11 @@
 extern "C" {
 #endif
 
-typedef struct _clc_bytes_16{
+typedef struct {
 	unsigned char b[16];
 } clc_bytes_16;
 
-typedef struct _clc_bytes_20{
+typedef struct {
 	unsigned char b[20];
 } clc_bytes_20;
 

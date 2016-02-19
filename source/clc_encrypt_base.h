@@ -13,21 +13,21 @@ extern unsigned char clc_E_tab[256];
 extern unsigned char clc_L_tab[256];
 extern unsigned char clc_Rcon_tab[16];
 
-typedef struct _key_exp_16{
+typedef struct {
 	unsigned char b[176];
-} clc_key_exp_16;
+} clc_aes_key_128;
 
-typedef struct _key_exp_24{
+typedef struct {
 	unsigned char b[208];
-} clc_key_exp_24;
+} clc_aes_key_192;
 
-typedef struct _key_exp_32{
+typedef struct {
 	unsigned char b[240];
-} clc_key_exp_32;
+} clc_aes_key_256;
 
-extern void clc_print_key_16( const clc_key_exp_16 * key );
-extern void clc_print_key_24( const clc_key_exp_24 * key );
-extern void clc_print_key_32( const clc_key_exp_32 * key );
+extern void clc_print_key_16( const clc_aes_key_128 * key );
+extern void clc_print_key_24( const clc_aes_key_192 * key );
+extern void clc_print_key_32( const clc_aes_key_256 * key );
 
 extern void clc_sub_bytes( clc_bytes_16 * x );
 extern void clc_sub_bytes_rev( clc_bytes_16 * x );
