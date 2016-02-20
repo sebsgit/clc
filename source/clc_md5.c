@@ -7,18 +7,12 @@
 #include <inttypes.h>
 #include "clc_bytes.h"
 
-struct _clc_md5_context{
+typedef struct {
 	int32_t buff[16];
 	uint32_t md5[4];
 	uint64_t data_len;
 	uint_fast8_t buff_len;
-};
-
-typedef struct _clc_md5_context clc_md5_context;
-
-extern void clc_md5_initialize( clc_md5_context * context );
-extern void clc_md5_add_data( const unsigned char * data, long data_len, clc_md5_context * context );
-extern void clc_md5_finalize( clc_md5_context * context, clc_bytes_16 * out );
+} clc_md5_context;
 
 static unsigned char clc_md5_pad[] = {
 	0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -122,25 +116,13 @@ static unsigned char clc_md5_init[] = {
 			a = ROT_L(t, s) + b
 
 
-void clc_print_buff(unsigned char * x){
-	int di;
-	for (di = 0; di < 16; ++di)
-	    printf("%02x", x[di]);
-}
-
-void clc_print_buff_8(unsigned char * x){
-	int di;
-	for (di = 0; di < 8; ++di)
-	    printf("%02x", x[di]);
-}
-
-void clc_md5_initialize( clc_md5_context * context ){
+static void clc_md5_initialize( clc_md5_context * context ){
 	memcpy(context->md5,clc_md5_init,16);
 	context->buff_len = 0;
 	context->data_len = 0;
 }
 
-void clc_md5_calc( clc_md5_context * context ){
+static void clc_md5_calc( clc_md5_context * context ){
 	unsigned int a,b,c,d,t;
 	a = context->md5[0];
 	b = context->md5[1];
@@ -221,7 +203,7 @@ void clc_md5_calc( clc_md5_context * context ){
 	context->md5[3] += d;
 }
 
-void clc_md5_add_data( const unsigned char * data, long in_data_len, clc_md5_context * context ){
+static void clc_md5_add_data( const unsigned char * data, long in_data_len, clc_md5_context * context ){
 	long final_len = in_data_len + context->buff_len;
 	long i=0;
 	context->data_len += in_data_len;
@@ -236,7 +218,7 @@ void clc_md5_add_data( const unsigned char * data, long in_data_len, clc_md5_con
 	context->buff_len = final_len;
 }
 
-void clc_md5_finalize( clc_md5_context * context, clc_bytes_16 * out ){
+static void clc_md5_finalize( clc_md5_context * context, clc_bytes_16 * out ){
 	const int64_t length_in_bits = context->data_len*8;
 	const int64_t len_bits = (context->data_len*8)%512;
 	uint_fast8_t tmp, pad_byte;

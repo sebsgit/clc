@@ -9,18 +9,12 @@
 
 #define CLC_ROTATE_LEFT(x, n) ((((x) << (n)) & 0xFFFFFFFF) | ((x) >> (32 - (n))))
 
-struct _clc_sha1_context{
+typedef struct {
 	unsigned char w[64];
 	uint32_t tmp[5];
 	uint64_t data_len;
 	uint_fast8_t buff_len;
-};
-
-typedef struct _clc_sha1_context clc_sha1_context;
-
-extern void clc_sha1_initialize( clc_sha1_context * context );
-extern void clc_sha1_add_data( const unsigned char * data, long data_len, clc_sha1_context * context );
-extern void clc_sha1_finalize( clc_sha1_context * context, clc_bytes_20 * out );
+} clc_sha1_context;
 
 static unsigned int clc_sha1_init[] = {
 	0x67452301,
@@ -37,13 +31,13 @@ static unsigned char clc_sha1_pad[] = {
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 };
 
-void clc_sha1_initialize( clc_sha1_context * context ){
+static void clc_sha1_initialize( clc_sha1_context * context ){
 	memcpy(context->tmp,clc_sha1_init,20);
 	context->buff_len = 0;
 	context->data_len = 0;
 }
 
-void clc_sha1_calc( clc_sha1_context * context ){
+static void clc_sha1_calc( clc_sha1_context * context ){
 	unsigned int x[80];
 	unsigned int a,b,c,d,e,f,k;
 	unsigned int t;
@@ -97,7 +91,7 @@ void clc_sha1_calc( clc_sha1_context * context ){
 	context->tmp[4] += e;
 }
 
-void clc_sha1_add_data( const unsigned char * data, long in_data_len, clc_sha1_context * context ){
+static void clc_sha1_add_data( const unsigned char * data, long in_data_len, clc_sha1_context * context ){
 	long final_len = in_data_len + context->buff_len;
 	long i=0;
 	context->data_len += in_data_len;
@@ -112,7 +106,7 @@ void clc_sha1_add_data( const unsigned char * data, long in_data_len, clc_sha1_c
 	context->buff_len = final_len;
 }
 
-void clc_sha1_finalize( clc_sha1_context * context, clc_bytes_20 * out ){
+static void clc_sha1_finalize( clc_sha1_context * context, clc_bytes_20 * out ){
 	const int64_t length_in_bits = context->data_len*8;
 	const int64_t len_bits = (context->data_len*8)%512;
 	uint_fast8_t pad_byte, j;
