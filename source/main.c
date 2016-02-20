@@ -152,6 +152,51 @@ static void validate_aes_32() {
 	assert(memcmp(&data, plaintext, sizeof(data)) == 0);
 }
 
+static void validate_aes_16_2() {
+	const unsigned char plaintext2[] = { 0x32, 0x43, 0xf6, 0xa8, 0x88, 0x5a, 0x30, 0x8d, 0x31, 0x31, 0x98, 0xa2, 0xe0, 0x37, 0x07, 0x34 };
+	const unsigned char key2[] = { 0x2b, 0x7e, 0x15, 0x16, 0x28, 0xae, 0xd2, 0xa6, 0xab, 0xf7, 0x15, 0x88, 0x09, 0xcf, 0x4f, 0x3c };
+	const unsigned char expected2[] = { 0x39, 0x25, 0x84, 0x1d, 0x02, 0xdc, 0x09, 0xfb, 0xdc, 0x11, 0x85, 0x97, 0x19, 0x6a, 0x0b, 0x32 };
+	unsigned char aes_output[sizeof(expected2)];
+	unsigned char decrypt_output[sizeof(expected2)];
+	clc_aes_key key;
+	memset(aes_output, 0, sizeof(aes_output));
+	clc_aes_init_key(&key, key2, sizeof(key2), CLC_AES_128);
+	clc_aes_encrypt(aes_output, plaintext2, sizeof(plaintext2), key, CLC_AES_128);
+	assert(memcmp(aes_output, expected2, sizeof(expected2)) == 0);
+	clc_aes_decrypt(decrypt_output, aes_output, sizeof(aes_output), key, CLC_AES_128);
+	assert(memcmp(decrypt_output, plaintext2, sizeof(decrypt_output)) == 0);
+}
+
+static void validate_aes_24_2() {
+	const unsigned char plaintext[] = {0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88, 0x99, 0xaa, 0xbb, 0xcc, 0xdd, 0xee, 0xff};
+	const unsigned char key2[] = { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f, 0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17 };
+	const unsigned char expected_cipher[] = { 0xdd, 0xa9, 0x7c, 0xa4, 0x86, 0x4c, 0xdf, 0xe0, 0x6e, 0xaf, 0x70, 0xa0, 0xec, 0x0d, 0x71, 0x91 };
+	unsigned char aes_output[sizeof(expected_cipher)];
+	unsigned char decrypt_output[sizeof(expected_cipher)];
+	clc_aes_key key;
+	memset(aes_output, 0, sizeof(aes_output));
+	clc_aes_init_key(&key, key2, sizeof(key2), CLC_AES_192);
+	clc_aes_encrypt(aes_output, plaintext, sizeof(plaintext), key, CLC_AES_192);
+	assert(memcmp(aes_output, expected_cipher, sizeof(expected_cipher)) == 0);
+	clc_aes_decrypt(decrypt_output, aes_output, sizeof(aes_output), key, CLC_AES_192);
+	assert(memcmp(decrypt_output, plaintext, sizeof(decrypt_output)) == 0);
+}
+
+static void validate_aes_32_2() {
+	const unsigned char plaintext[] = {0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88, 0x99, 0xaa, 0xbb, 0xcc, 0xdd, 0xee, 0xff};
+	const unsigned char key2[] = { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f, 0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1a, 0x1b, 0x1c, 0x1d, 0x1e, 0x1f };
+	const unsigned char expected_cipher[] = { 0x8e, 0xa2, 0xb7, 0xca, 0x51, 0x67, 0x45, 0xbf, 0xea, 0xfc, 0x49, 0x90, 0x4b, 0x49, 0x60, 0x89 };
+	unsigned char aes_output[sizeof(expected_cipher)];
+	unsigned char decrypt_output[sizeof(expected_cipher)];
+	clc_aes_key key;
+	memset(aes_output, 0, sizeof(aes_output));
+	clc_aes_init_key(&key, key2, sizeof(key2), CLC_AES_256);
+	clc_aes_encrypt(aes_output, plaintext, sizeof(plaintext), key, CLC_AES_256);
+	assert(memcmp(aes_output, expected_cipher, sizeof(expected_cipher)) == 0);
+	clc_aes_decrypt(decrypt_output, aes_output, sizeof(aes_output), key, CLC_AES_256);
+	assert(memcmp(decrypt_output, plaintext, sizeof(decrypt_output)) == 0);
+}
+
 int main(int argc, char ** argv){
 	const int n = 2000;
 	const unsigned char result_md5[] = { 0xf5, 0xbf, 0x69, 0x72, 0x1c, 0x97, 0xea, 0x67, 0xb3, 0xc3, 0xc6, 0x31, 0x81, 0xca, 0xbf, 0x90 };
@@ -162,6 +207,9 @@ int main(int argc, char ** argv){
 	validate_aes_16();
 	validate_aes_24();
 	validate_aes_32();
+	validate_aes_16_2();
+	validate_aes_24_2();
+	validate_aes_32_2();
 	test_16(n);
 	test_24(n);
 	test_32(n);
@@ -172,6 +220,7 @@ int main(int argc, char ** argv){
 	
 	clc_sha1((const unsigned char*)"text to sha1 test",strlen("text to sha1 test"),&b20);
 	assert(memcmp(&b20, result_sha1, 20) == 0);
+	
 	return 0;
 }
 

@@ -102,7 +102,7 @@ static void clc_set_b_m(short rn, short cn, clc_bytes_16 * x, unsigned char v){
 	x->b[rn+cn*4] = v;
 }
 
-static void clc_xor_16(unsigned char * b1, unsigned char * b2){
+static void clc_xor_16(unsigned char * b1, const unsigned char * b2){
 	#ifdef CLC_WITH_SSE
 		__m128 bytes_sse = _mm_loadu_ps((const float*)b1);
 		__m128 key_sse = _mm_loadu_ps((const float*)b2);
@@ -231,15 +231,15 @@ static void clc_key_sched_core( unsigned char * b_in, short i ){
 	clc_rot_sub_word(b_in, clc_Rcon_tab[i]);
 }
 
-static void clc_add_round_key( clc_bytes_16 * x , unsigned char * key, short n_round ){
+static void clc_add_round_key( clc_bytes_16 * x , const unsigned char * key, short n_round ){
 	clc_xor_16(x->b,key+n_round*16);
 }
 
-static void clc_add_round_key_rev( clc_bytes_16 * x , unsigned char * key, short n_round, int key_len ){
+static void clc_add_round_key_rev( clc_bytes_16 * x , const unsigned char * key, short n_round, int key_len ){
 	clc_xor_16(x->b,key+key_len-n_round*16);
 }
 
-static void clc_encrypt( clc_bytes_16 * x, unsigned char * key, short n_rounds ){
+static void clc_encrypt( clc_bytes_16 * x, const unsigned char * key, short n_rounds ){
 	short i;
 	clc_add_round_key(x,key,0);
 	for( i=1 ; i<n_rounds ; ++i ){
@@ -253,7 +253,7 @@ static void clc_encrypt( clc_bytes_16 * x, unsigned char * key, short n_rounds )
 	clc_add_round_key(x,key,n_rounds);
 }
 
-static void clc_decrypt( clc_bytes_16 * x, unsigned char * key, short n_rounds, int key_size ){
+static void clc_decrypt( clc_bytes_16 * x, const unsigned char * key, short n_rounds, int key_size ){
 	short i;
 	clc_add_round_key_rev(x,key,0,key_size);
 	for( i=1 ; i<n_rounds ; ++i ){
@@ -354,9 +354,9 @@ void clc_expand_key_32( clc_aes_key_256 * key ){
 	}
 }
 
-void clc_encrypt_16( clc_bytes_16 * x, clc_aes_key_128 * key ){ clc_encrypt(x,key->b,10); }
-void clc_decrypt_16( clc_bytes_16 * x, clc_aes_key_128 * key ){ clc_decrypt(x,key->b,10,160); }
-void clc_encrypt_24( clc_bytes_16 * x, clc_aes_key_192 * key ){ clc_encrypt(x,key->b,12); }
-void clc_decrypt_24( clc_bytes_16 * x, clc_aes_key_192 * key ){ clc_decrypt(x,key->b,12,192); }
-void clc_encrypt_32( clc_bytes_16 * x, clc_aes_key_256 * key ){ clc_encrypt(x,key->b,14); }
-void clc_decrypt_32( clc_bytes_16 * x, clc_aes_key_256 * key ){ clc_decrypt(x,key->b,14,224); }
+void clc_encrypt_16( clc_bytes_16 * x, const clc_aes_key_128 * key ){ clc_encrypt(x,key->b,10); }
+void clc_decrypt_16( clc_bytes_16 * x, const clc_aes_key_128 * key ){ clc_decrypt(x,key->b,10,160); }
+void clc_encrypt_24( clc_bytes_16 * x, const clc_aes_key_192 * key ){ clc_encrypt(x,key->b,12); }
+void clc_decrypt_24( clc_bytes_16 * x, const clc_aes_key_192 * key ){ clc_decrypt(x,key->b,12,192); }
+void clc_encrypt_32( clc_bytes_16 * x, const clc_aes_key_256 * key ){ clc_encrypt(x,key->b,14); }
+void clc_decrypt_32( clc_bytes_16 * x, const clc_aes_key_256 * key ){ clc_decrypt(x,key->b,14,224); }
