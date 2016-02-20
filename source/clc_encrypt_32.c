@@ -1,7 +1,7 @@
 #include <assert.h>
 #include <string.h>
 #include <stdio.h>
-#include "clc_encrypt_32.h"
+#include "clc_aes.h"
 #include "clc_encrypt_base.h"
 
 extern unsigned char clc_s_box[256];

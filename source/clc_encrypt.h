@@ -5,9 +5,7 @@
 extern "C" {
 #endif
 
-#include "clc_encrypt_16.h"
-#include "clc_encrypt_24.h"
-#include "clc_encrypt_32.h"
+#include "clc_aes.h"
 
 #ifdef __cplusplus
 }

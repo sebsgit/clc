@@ -1,7 +1,7 @@
 #include <assert.h>
 #include <string.h>
 #include <stdio.h>
-#include "clc_encrypt_16.h"
+#include "clc_aes.h"
 #include "clc_encrypt_base.h"
 
 void clc_print_key_16( const clc_aes_key_128 * key ){
