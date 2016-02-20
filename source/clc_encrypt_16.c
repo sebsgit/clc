@@ -46,27 +46,3 @@ void clc_encrypt_16( clc_bytes_16 * x, clc_aes_key_128 * key ){
 void clc_decrypt_16( clc_bytes_16 * x, clc_aes_key_128 * key ){
 	clc_decrypt(x,key->b,10,160);
 }
-
-void clc_encrypt_data_16( unsigned char * in, clc_aes_key_128 * key, long data_len ){
-	const long c = data_len/16;
-	long i;
-	clc_bytes_16 b;
-	clc_expand_key_16(key);
-	for(i=0 ; i<c ; ++i){
-		memcpy(b.b,in+i*16,16);
-		clc_encrypt_16(&b,key);
-		memcpy(in+i*16,b.b,16);
-	}
-}
-
-void clc_decrypt_data_16( unsigned char * in, clc_aes_key_128 * key, long data_len ){
-	const long c = data_len/16;
-	long i;
-	clc_bytes_16 b;
-	clc_expand_key_16(key);
-	for(i=0 ; i<c ; ++i){
-		memcpy(b.b,in+i*16,16);
-		clc_decrypt_16(&b,key);
-		memcpy(in+i*16,b.b,16);
-	}
-}

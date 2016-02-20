@@ -18,9 +18,6 @@ extern void clc_print_key_32( const clc_aes_key_256 * key );
 extern void clc_encrypt_32( clc_bytes_16 * x, clc_aes_key_256 * key );
 extern void clc_decrypt_32( clc_bytes_16 * x, clc_aes_key_256 * key );
 
-void clc_encrypt_data_32( unsigned char * in, clc_aes_key_256 * key, long data_len );
-void clc_decrypt_data_32( unsigned char * in, clc_aes_key_256 * key, long data_len );
-
 #ifdef __cplusplus
 }
 #endif
