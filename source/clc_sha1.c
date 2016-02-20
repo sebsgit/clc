@@ -8,6 +8,21 @@
 
 #define CLC_ROTATE_LEFT(x, n) ((((x) << (n)) & 0xFFFFFFFF) | ((x) >> (32 - (n))))
 
+#include <inttypes.h>
+
+struct _clc_sha1_context{
+	unsigned char w[64];
+	uint32_t tmp[5];
+	uint64_t data_len;
+	uint_fast8_t buff_len;
+};
+
+typedef struct _clc_sha1_context clc_sha1_context;
+
+extern void clc_sha1_initialize( clc_sha1_context * context );
+extern void clc_sha1_add_data( const unsigned char * data, long data_len, clc_sha1_context * context );
+extern void clc_sha1_finalize( clc_sha1_context * context, clc_bytes_20 * out );
+
 static unsigned int clc_sha1_init[] = {
 	0x67452301,
 	0xEFCDAB89,
