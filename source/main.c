@@ -5,8 +5,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include "clc_encrypt.h"
-#include "clc_md5.h"
-#include "clc_sha1.h"
+#include "clc_hash.h"
 
 static short clc_test_eq( const clc_bytes_16 * x1, const clc_bytes_16 * x2 ){
 	return (0 == memcmp(x1->b,x2->b,16));

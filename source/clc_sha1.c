@@ -4,11 +4,10 @@
 #include <stdint.h>
 #include <math.h>
 #include <stdio.h>
-#include "clc_sha1.h"
+#include <inttypes.h>
+#include "clc_bytes.h"
 
 #define CLC_ROTATE_LEFT(x, n) ((((x) << (n)) & 0xFFFFFFFF) | ((x) >> (32 - (n))))
-
-#include <inttypes.h>
 
 struct _clc_sha1_context{
 	unsigned char w[64];

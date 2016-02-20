@@ -4,9 +4,8 @@
 #include <stdint.h>
 #include <math.h>
 #include <stdio.h>
-#include "clc_md5.h"
-
 #include <inttypes.h>
+#include "clc_bytes.h"
 
 struct _clc_md5_context{
 	int32_t buff[16];
